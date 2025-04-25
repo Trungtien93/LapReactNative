@@ -1,7 +1,8 @@
-// App.tsx
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import HomeScreen from './screens/Lap1/HomeScreen';
 import project1 from './screens/Lap1/project1';
@@ -14,44 +15,107 @@ import project7 from './screens/Lap1/project7';
 import project8 from './screens/Lap1/project8';
 import project9 from './screens/Lap1/project9';
 import project10 from './screens/Lap1/project10';
-//import SettingsScreen from './screens/SettingsScreen';
+import Calculator from './screens/Lap1/Lap2/Calculator';
 
-// Định nghĩa kiểu cho Stack Navigator
-export type RootStackParamList = {
-  Home: undefined;
-  Project_1: undefined;
-  Project_2: undefined;
-  Project_3: undefined;
-  Project_4: undefined;
-  Project_5: undefined;
-  Project_6: undefined;
-  Project_7: undefined;
-  Project_8: undefined;
-  Project_9: undefined;
-  Project_10: undefined;
-};
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+// 📌 Định nghĩa Stack cho Lap1
+function Lap1Stack() {
+  return (
+    <Stack.Navigator initialRouteName="HomeScreen">
+      <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ title: 'Home' }} />
+      <Stack.Screen name="project1" component={project1} />
+      <Stack.Screen name="project2" component={project2} />
+      <Stack.Screen name="project3" component={project3} />
+      <Stack.Screen name="project4" component={project4} />
+      <Stack.Screen name="project5" component={project5} />
+      <Stack.Screen name="project6" component={project6} />
+      <Stack.Screen name="project7" component={project7} />
+      <Stack.Screen name="project8" component={project8} />
+      <Stack.Screen name="project9" component={project9} />
+      <Stack.Screen name="project10" component={project10} />
+    </Stack.Navigator>
+  );
+}
 
-const App = () => {
+// 📌 Định nghĩa Stack cho Lap2
+function Lap2Stack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Calculator" component={Calculator} />
+    </Stack.Navigator>
+  );
+}
+
+// 📌 Lap3, Lap4, Lap5 để trống
+function EmptyScreen() {
+  return null;
+}
+
+export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Project_1" component={project1} />
-        <Stack.Screen name="Project_2" component={project2} />
-        <Stack.Screen name="Project_3" component={project3} />
-        <Stack.Screen name="Project_4" component={project4} />
-        <Stack.Screen name="Project_5" component={project5} />
-        <Stack.Screen name="Project_6" component={project6} />
-        <Stack.Screen name="Project_7" component={project7} />
-        <Stack.Screen name="Project_8" component={project8} />
-        <Stack.Screen name="Project_9" component={project9} />
-        <Stack.Screen name="Project_10" component={project10} />
-      
-      </Stack.Navigator>
+      <Tab.Navigator
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarStyle: { backgroundColor: '#fff', height: 60 },
+        tabBarActiveTintColor: '#FF4D4D',
+        tabBarInactiveTintColor: '#888',
+        tabBarIcon: ({ color, size, focused }) => {
+          switch (route.name) {
+            case 'Lap1':
+              return (
+                <Ionicons
+                  name={focused ? 'home' : 'home-outline'}
+                  size={size}
+                  color={color}
+                />
+              );
+            case 'Lap2':
+              return (
+                <MaterialCommunityIcons
+                  name={focused ? 'calculator-variant' : 'calculator'}
+                  size={size}
+                  color={color}
+                />
+              );
+            case 'Lap3':
+              return (
+                <FontAwesome5
+                  name="tools"
+                  size={size}
+                  color={color}
+                />
+              );
+            case 'Lap4':
+              return (
+                <Ionicons
+                  name="settings-outline"
+                  size={size}
+                  color={color}
+                />
+              );
+            case 'Lap5':
+              return (
+                <Ionicons
+                  name="person-circle-outline"
+                  size={size}
+                  color={color}
+                />
+              );
+            default:
+              return null;
+          }
+        },
+      })}
+      >
+        <Tab.Screen name="Lap1" component={Lap1Stack} options={{ headerShown: false }} />
+        <Tab.Screen name="Lap2" component={Lap2Stack} options={{ headerShown: false }} />
+        <Tab.Screen name="Lap3" component={EmptyScreen} />
+        <Tab.Screen name="Lap4" component={EmptyScreen} />
+        <Tab.Screen name="Lap5" component={EmptyScreen} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
-};
-
-export default App;
+}

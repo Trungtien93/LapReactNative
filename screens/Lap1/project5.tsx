@@ -11,7 +11,7 @@ const project5: React.FC<Props> = ({ navigation }) => {
   const style = StyleSheet.create({
     container: {
       flex: 1,
-      
+      flexDirection: 'row',
       justifyContent: 'space-around',
       alignItems: 'center',
     },
