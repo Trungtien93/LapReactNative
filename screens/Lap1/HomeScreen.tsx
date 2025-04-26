@@ -1,73 +1,79 @@
-import React,{useState} from 'react';
-import { View, Text, Button,FlatList,StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../App';
+import { useNavigation } from '@react-navigation/native';
 
-type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Home'>;
+type ProjectStackParamList = {
+  HomeScreen: undefined;
+  Project1: undefined;
+  Project2: undefined;
+  Project3: undefined;
+  Project4: undefined;
+  Project5: undefined;
+  Project6: undefined;
+  Project7: undefined;
+  Project8: undefined;
+  Project9: undefined;
+  Project10: undefined;
 };
 
-const HomeScreen: React.FC<Props> = ({ navigation }) => {
-  const allProjects = [
-    'Project_1', 'Project_2', 'Project_3', 'Project_4', 'Project_5',
-    'Project_6', 'Project_7', 'Project_8', 'Project_9', 'Project_10',
-  ];
+const HomeScreen = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<ProjectStackParamList>>();
 
-  const [projects, setProjects] = useState<string[]>(allProjects.slice(0, 5)); // Load the first 5 items
-  const [page, setPage] = useState(1);
-  const itemsPerPage = 5;
-
-  const loadMore = () => {
-    const nextPage = page + 1;
-    const startIndex = page * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-
-    if (startIndex < allProjects.length) {
-      setProjects((prevProjects) => [
-        ...prevProjects,
-        ...allProjects.slice(startIndex, endIndex),
-      ]);
-      setPage(nextPage);
-    }
-  };
+  // Tạo danh sách các dự án
+  const data = Array.from({ length: 10 }, (_, i) => `Project${i + 1}`);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>List Project</Text>
+      <Text style={styles.title}>Danh Sách Dự Án</Text>
       <FlatList
-        data={projects}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item, index }) => (
-          <View key={index} style={styles.buttonContainer}>
-            <Button
-              title={item}
-              onPress={() => navigation.navigate(item as keyof RootStackParamList)}
-            />
-          </View>
+        data={data}
+        keyExtractor={(item) => item}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => navigation.navigate(item as keyof ProjectStackParamList)}
+          >
+            <Text style={styles.text}>{item}</Text>
+          </TouchableOpacity>
         )}
-        onEndReached={loadMore} // Triggered when the user scrolls to the end
-        onEndReachedThreshold={0.5} // Load more when 50% of the list's end is visible
+        contentContainerStyle={styles.list}
       />
     </View>
   );
 };
 
+export default HomeScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10,
+    padding: 20,
+    backgroundColor: '#f5f5f5',
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
+    fontWeight: 'bold',
     marginBottom: 20,
+    textAlign: 'center',
+    color: '#333',
   },
-  buttonContainer: {
-    marginVertical: 5,
+  list: {
+    paddingBottom: 20,
+  },
+  item: {
+    backgroundColor: '#fff',
+    padding: 15,
+    marginBottom: 10,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3, // Hiệu ứng đổ bóng trên Android
+  },
+  text: {
+    fontSize: 16,
+    color: '#333',
   },
 });
-
-
-   
-export default HomeScreen;

@@ -1,14 +1,15 @@
 import React from 'react';
 import { View, Text, FlatList,StyleSheet } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../App';
+import { useNavigation } from '@react-navigation/native';
 
-
-type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Project_8'>;
+type ProjectStackParamList = {
+  HomeScreen: undefined;
 };
 
-const project8: React.FC<Props> = ({ navigation }) => {
+const Project8= () => {
+  const navigation = useNavigation<NativeStackNavigationProp<ProjectStackParamList>>();
+
   const data = Array.from({ length: 50 }, (_, i) => ({ key: `${i}`,name: `Item ${i + 1}`}));
   return (
     <FlatList
@@ -22,4 +23,4 @@ const project8: React.FC<Props> = ({ navigation }) => {
   );
 };
 
-export default project8;
+export default Project8;

@@ -1,19 +1,36 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../App';
+import { useNavigation } from '@react-navigation/native';
 
-type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Project_1'>;
+type ProjectStackParamList = {
+  HomeScreen: undefined;
 };
 
-const project1: React.FC<Props> = ({ navigation }) => {
+const Project1 = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<ProjectStackParamList>>();
+
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center',backgroundColor: '#DB0000', }}>
-      <Text style={{color:"#FFF", fontSize:20}}>Hello, React Native!</Text>
-      
+    <View style={styles.container}>
+      <Text style={styles.title}>Hello, Project 1!</Text>
+      <Button title="Quay về Home" onPress={() => navigation.navigate('HomeScreen')} />
     </View>
   );
 };
 
-export default project1;
+export default Project1;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#DB0000',
+  },
+  title: {
+    color: '#FFF',
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+});

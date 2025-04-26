@@ -1,14 +1,16 @@
 import React from 'react';
 import { View, Text, Button, TextInput } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../App';
+import { useNavigation } from '@react-navigation/native';
 
 
-type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Project_7'>;
+type ProjectStackParamList = {
+  HomeScreen: undefined;
 };
 
-const project7: React.FC<Props> = ({ navigation }) => {
+const Project7= () => {
+  const navigation = useNavigation<NativeStackNavigationProp<ProjectStackParamList>>();
+
   const[name, setName] = React.useState('');
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -23,4 +25,4 @@ const project7: React.FC<Props> = ({ navigation }) => {
   );
 };
 
-export default project7;
+export default Project7;

@@ -1,46 +1,34 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../App';
+import { useNavigation } from '@react-navigation/native';
+import MyButton from './MyButton';
 
-type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Project_5'>;
+type ProjectStackParamList = {
+  HomeScreen: undefined;
 };
 
-const project5: React.FC<Props> = ({ navigation }) => {
-  const style = StyleSheet.create({
-    container: {
-      flex: 1,
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-    },
-    box: {
-      width: 100,
-      height: 100,
-      backgroundColor: 'blue',
-      justifyContent: 'center',
-      alignItems: 'center',
-      margin: 10, // Optional: Add spacing between boxes
-    },
-    text: {
-      color: 'white',
-      fontWeight: 'bold',
-    },
-  });
-  const Square = ({ text }: { text: string }) => (
-    <View style={style.box}>
-      <Text style={style.text}>{text}</Text>
-    </View>
-  );
+const Project3 = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<ProjectStackParamList>>();
+
+  const handlePress = () => {
+    Alert.alert('Pressed!', 'You clicked the button.');
+  };
 
   return (
-    <View style={style.container}>
-  
-      <Square text="Hello" />
-      <Square text="World" />
-      <Square text="!" />
+    <View style={styles.container}>
+      <MyButton title="Click Here" onPress={handlePress} style={undefined} />
     </View>
   );
-}
-export default project5;
+};
+
+export default Project3;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+  },
+});

@@ -1,12 +1,7 @@
 import React from 'react';
 import { View, Text,  SectionList } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../App';
-
-type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Project_9'>;
-};
-
+import { useNavigation } from '@react-navigation/native';
 
   const DATA = [
     { title: 'A', data: ['Item 1', 'A']},

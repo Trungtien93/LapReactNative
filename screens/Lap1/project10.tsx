@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, FlatList, StyleSheet } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../App';
+import { useNavigation } from '@react-navigation/native';
 
-type Props = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Project_10'>;
+type ProjectStackParamList = {
+  HomeScreen: undefined;
 };
 
 // Custom component for list items
@@ -14,7 +14,8 @@ const ListItem: React.FC<{ text: string }> = ({ text }) => (
   </View>
 );
 
-const Project10: React.FC<Props> = ({ navigation }) => {
+const Project10: React.FC = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<ProjectStackParamList>>();
   const [items, setItems] = useState<string[]>([]);
   const [input, setInput] = useState('');
 
